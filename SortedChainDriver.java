@@ -1,4 +1,3 @@
-import java.util.*;
 class SortedChain<T extends Comparable>{
 
     class Node{
@@ -36,6 +35,26 @@ class SortedChain<T extends Comparable>{
             temp=temp.next;
         }
     }
+    public void delete(T data){
+        if(head==null){
+            System.out.println("Chain is empty");
+        }
+        if(head.data.compareTo(data)==0){
+            head=head.next;
+        }
+        else{
+            Node curr=head;
+            while(curr.next!=null&&curr.next.data.compareTo(data)<0){
+                curr=curr.next;
+            }
+            if(curr.next==null){
+                System.out.println("Element not found");
+            }
+            else{
+                curr.next=curr.next.next;
+            }
+        }
+    }
 
 }
 class SortedChainDriver{
@@ -46,5 +65,9 @@ class SortedChainDriver{
         ch.insert(40);
         ch.insert(25);
         ch.display();
+        ch.delete(25);
+        ch.display();
+
+
     }
 }
