@@ -9,7 +9,7 @@ interface Q<T>{
     boolean isEmpty();
 }
 class GenLLQ<T> implements Q<T>{
-    class Node{
+    private class Node{
         T data;
         Node next;
         Node(T data){
