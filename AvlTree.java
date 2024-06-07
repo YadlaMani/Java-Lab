@@ -1,3 +1,4 @@
+import java.util.*;
 class Node{
     int data;
     int height;
@@ -27,7 +28,7 @@ class AvlTree{
         return height(n.left)-height(n.right);
     }
     Node rightRotate(Node y){
-        
+
         Node x=y.left;
         Node T2=x.right;
         x.right=y;
@@ -99,21 +100,15 @@ class AvlTree{
         else if (key > root.data)
 	            root.right = deleteNode(root.right, key);
         else{
-            if ((root.left == null) || (root.right == null))
-            {
-                Node temp = null;
-                if (temp == root.left)
-                temp = root.right;
-                else
-                temp = root.left;
-                if (temp == null)
-                {
-                temp = root;
-                root = null;
-                }
-                else 
-                root = temp;
-            } 
+            if(root.left==null&&root.right==null){
+                return null;
+            }
+            else if(root.left==null){
+                return root.right;
+            }
+            else if(root.right==null){
+                return root.left;
+            }
             else
             {
             Node temp = minValueNode(root.right);
@@ -128,6 +123,7 @@ class AvlTree{
         int balance = getBalance(root);
         if (balance > 1 && getBalance(root.left) >= 0)
 	            return rightRotate(root);
+            
                 if (balance > 1 && getBalance(root.left) < 0)
                 {
                     root.left = leftRotate(root.left);
@@ -152,19 +148,23 @@ class AvlTree{
 	    }
         public static void main(String[] args) {
 	        AvlTree tree = new AvlTree();
+            Scanner sc=new Scanner(System.in);
+            System.out.println("1.Insert 2.Delete 3.Display 4.exit");
+            while(true){
+                System.out.println("Enter your choice:");
+                int ch=sc.nextInt();
+                switch(ch){
+                    case 1:System.out.println("Enter the element to insert:");
+                    tree.root=tree.insert(tree.root,sc.nextInt());break;
+                    case 2:System.out.println("Enter the element to delete:");
+                    tree.root=tree.deleteNode(tree.root,sc.nextInt());break;
+                    case 3:tree.preOrder(tree.root);break;
+                    default:System.exit(0);
+                }
+            }
 	 
 	        
-	        tree.root = tree.insert(tree.root, 10);
-	        tree.root = tree.insert(tree.root, 20);
-	        tree.root = tree.insert(tree.root, 30);
-	        tree.root = tree.insert(tree.root, 40);
-	        tree.root = tree.insert(tree.root, 50);
-	        System.out.println("Root "+tree.root.data);
-	        tree.root = tree.insert(tree.root, 25);
 	        
-	        System.out.println("Preorder traversal" +
-	                        " of constructed tree is : ");
-	        tree.preOrder(tree.root);
 	    }
 
         
